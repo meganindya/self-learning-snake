@@ -9,7 +9,7 @@ class NeuralNetwork {
     this.hLayers = hLayers;
 
     weights = new Matrix[hLayers + 1];
-    weights[0] = new Matrix[hNodes, iNodes + 1];
+    weights[0] = new Matrix(hNodes, iNodes + 1);
     for (int i = 0; i < hLayers; i++) {
       weights[i] = new Matrix(hNodes, hNodes + 1);
     }
@@ -60,7 +60,7 @@ class NeuralNetwork {
 
   void load(Matrix weights[]) {
     for (int i = 0; i < weights.length; i++) {
-      weights[i] = weight[i];
+      this.weights[i] = weights[i];
     }
   }
 
@@ -96,7 +96,7 @@ class NeuralNetwork {
       textSize(nSize / 2);
       textAlign(CENTER, CENTER);
       fill(0);
-      text(i, x + nSize / 2, y + (nSize / 2) + i * (nSize + space)));
+      text(i, x + nSize / 2, y + (nSize / 2) + i * (nSize + space));
     }
 
     layerCount++;

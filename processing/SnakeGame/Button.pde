@@ -18,7 +18,7 @@ class Button {
   }
 
   void show() {
-    fille(255);
+    fill(255);
     stroke(0);
     rectMode(CENTER);
     rect(X, Y, W, H);

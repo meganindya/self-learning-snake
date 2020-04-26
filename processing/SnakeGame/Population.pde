@@ -38,7 +38,7 @@ class Population {
     }
 
     for (int i = 0; i < snakes.length; i++) {
-      if (!snakes.dead) {
+      if (!snakes[i].dead) {
         snakes[i].look();
         snakes[i].think();
         snakes[i].move();
@@ -70,8 +70,8 @@ class Population {
 
     if (max > bestFitness) {
       bestFitness = max;
-      bestSnake = snakes[max].cloneForReplay();
-      bestSnakeScore = snakes[max].score;
+      bestSnake = snakes[maxIndex].cloneForReplay();
+      bestSnakeScore = snakes[maxIndex].score;
     } else {
       bestSnake = bestSnake.cloneForReplay();
     }
@@ -91,7 +91,7 @@ class Population {
 
   void naturalSelection() {
     Snake newSnakes[] = new Snake[snakes.length];
-    setBestSnake();
+    findBestSnake();
     calculateFitnessSum();
 
     newSnakes[0] = bestSnake.clone();

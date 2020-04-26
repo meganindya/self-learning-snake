@@ -11,7 +11,7 @@ class Snake {
   boolean replay = false;
 
   float vision[];
-  float decision;
+  float decision[];
 
   PVector head;
   ArrayList<PVector> body;
@@ -102,7 +102,7 @@ class Snake {
   void move() {
     if (!dead) {
       if (!humanPlaying && !modelLoaded) {
-        lifetime++;
+        lifeTime++;
         lifeLeft--;
       }
       if (foodCollide(head.x, head.y)) {
@@ -185,9 +185,9 @@ class Snake {
 
   void calculateFitness() {
     if (score < 10) {
-      fitness = floor(lifetime * lifetime) * pow(2, score);
+      fitness = floor(lifeTime * lifeTime) * pow(2, score);
     } else {
-      fitness = floor(lifetime * lifetime);
+      fitness = floor(lifeTime * lifeTime);
       fitness *= pow(2, 10);
       fitness *= score - 9;
     }
@@ -211,7 +211,7 @@ class Snake {
         bodyFound = true;
         look[1] = 1;
       }
-      if (replay && seeVision) {
+      if (replay && showVision) {
         stroke(0, 255, 0);
         point(pos.x, pos.y);
         if (foodFound) {
@@ -231,7 +231,7 @@ class Snake {
       distance += 1;
     }
 
-    if (replay && seeVision) {
+    if (replay && showVision) {
       noStroke();
       fill(0, 255, 0);
       ellipseMode(CENTER);

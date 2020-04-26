@@ -15,7 +15,7 @@ class Matrix {
     cols = matrix[0].length;
   }
 
-  void print() {
+  void output() {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         print(matrix[i][j] + " ");
@@ -32,7 +32,7 @@ class Matrix {
         for (int j = 0; j < m.cols; j++) {
           float sum = 0;
           for (int k = 0; k < cols; k++) {
-            sum += matrix[i][k] * m[k][j];
+            sum += matrix[i][k] * m.matrix[k][j];
           }
           result.matrix[i][j] = sum;
         }
@@ -59,7 +59,7 @@ class Matrix {
   }
 
   float[] toArray() {
-    float arr[] = new float(rows * cols);
+    float arr[] = new float[rows * cols];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         arr[i * cols + j] = matrix[i][j];

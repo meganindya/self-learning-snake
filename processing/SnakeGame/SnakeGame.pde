@@ -5,8 +5,8 @@ final int fps = 100;
 
 int hiscore = 0;
 
-float mutationRate = 0.0.5;
-//float defaultMutation = mutationRate;
+float mutationRate = 0.5;
+float defaultMutation = mutationRate;
 
 boolean humanPlaying = false;
 boolean replayBest = true;
@@ -20,6 +20,8 @@ Button loadButton;
 Button saveButton;
 Button increaseMut;
 Button decreaseMut;
+
+EvolutionGraph graph;
 
 Snake snake;
 Snake model;
@@ -66,7 +68,7 @@ void draw() {
     }
   } else {
     if (!modelLoaded) {
-      if (population.done()) {
+      if (population.allDead()) {
           hiscore = population.bestSnake.score;
           population.calculateFitness();
           population.naturalSelection();
@@ -77,7 +79,7 @@ void draw() {
       fill(150);
       textSize(25);
       textAlign(LEFT);
-      text("GEN : " + population.gen, 120, 60);
+      text("GEN : " + population.generation, 120, 60);
       //text("BEST FITNESS : " + population.bestFitness, 120, 50);
       //text("MOVES LEFT : " + population.bestSnake.lifeLeft, 120, 70);
       text("MUTATION RATE : " + mutationRate * 100 + "%", 120, 90);
@@ -171,7 +173,7 @@ void fileSelectedOut(File selection) {
   } else {
     String path = selection.getAbsolutePath();
     Table modelTable = new Table();
-    Snake modelToSave = pop.bestSnake.clone();
+    Snake modelToSave = population.bestSnake.clone();
     Matrix modelWeights[] = modelToSave.brain.pull();
     float weights[][] = new float[modelWeights.length][];
     for (int i = 0; i < weights.length; i++) {
@@ -218,11 +220,11 @@ void mousePressed() {
   }
   if (increaseMut.collide(mouseX, mouseY)) {
     mutationRate *= 2;
-    defaultmutation = mutationRate;
+    defaultMutation = mutationRate;
   }
   if (decreaseMut.collide(mouseX, mouseY)) {
     mutationRate /= 2;
-    defaultmutation = mutationRate;
+    defaultMutation = mutationRate;
   }
 }
 
