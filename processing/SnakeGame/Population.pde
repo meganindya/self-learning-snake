@@ -49,7 +49,9 @@ class Population {
   void show() {
     if (replayBest) {
       bestSnake.show();
-      bestSnake.brain.show(0, 0, 360, 790, bestSnake.vision, bestSnake.decision);
+      bestSnake.brain.show(
+        0, 0, 360, 790, bestSnake.vision, bestSnake.decision
+      );
     } else {
       for(int i = 0; i < snakes.length; i++) {
         snakes[i].show();

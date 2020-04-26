@@ -68,7 +68,9 @@ class NeuralNetwork {
     return weights.clone();
   }
 
-  void show(float x, float y, float w, float h, float vision[], float decision[]) {
+  void show(
+    float x, float y, float w, float h, float vision[], float decision[]
+  ) {
     float space = 5;
     float nSize = (h - (space * (iNodes - 2))) / iNodes;
     float nSpace = (w - (weights.length * nSize)) / weights.length;

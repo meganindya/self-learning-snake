@@ -8,7 +8,7 @@ class Food {
   }
 
   void show() {
-    noStroke();
+    stroke(0);
     fill(255, 0, 0);
     rect(pos.x, pos.y, SIZE, SIZE);
   }

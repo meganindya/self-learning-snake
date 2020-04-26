@@ -5,13 +5,15 @@ final int fps = 100;
 
 int hiscore = 0;
 
-float mutationRate = 0.5;
+float mutationRate = 0.05;
 float defaultMutation = mutationRate;
 
 boolean humanPlaying = false;
 boolean replayBest = true;
 boolean showVision = true;
 boolean modelLoaded = false;
+
+PFont font;
 
 ArrayList<Integer> evolution;
 
@@ -33,6 +35,8 @@ public void setting() {
 }
 
 void setup() {
+  font = createFont("agencyfb-bold.ttf", 32);
+
   evolution = new ArrayList<Integer>();
 
   graphButton = new Button(349, 15, 100, 30, "Graph");
@@ -56,7 +60,7 @@ void draw() {
   line(400, 0, 400, height);
   rectMode(CORNER);
   rect(400 + SIZE, SIZE, width - 400 - 40, height - 40);
-  //textFont(font);
+  textFont(font);
   if (humanPlaying) {
     snake.move();
     snake.show();

@@ -1,6 +1,6 @@
 class Snake {
   int score = 1;
-  int lifeLeft = 300;
+  int lifeLeft = 200;
   int lifeTime = 0;
   int foodIterator = 0;
   PVector velocity;
@@ -47,8 +47,8 @@ class Snake {
     vision = new float[24];
     decision = new float[4];
     this.foodList = new ArrayList<Food>(foodList.size());
-    for (Food food : foodList) {
-      this.foodList.add(food.clone());
+    for (Food f : foodList) {
+      this.foodList.add(f.clone());
     }
     food = foodList.get(foodIterator);
     foodIterator++;
@@ -76,7 +76,9 @@ class Snake {
   }
 
   boolean wallCollide(float x, float y) {
-    if (x >= width - SIZE || x < 400 + SIZE || y >= height - SIZE || y < SIZE) {
+    if (
+      x >= width - SIZE || x < 400 + SIZE || y >= height - SIZE || y < SIZE
+    ) {
       return true;
     }
     return false;
@@ -85,13 +87,13 @@ class Snake {
   void show() {
     food.show();
 
-    noStroke();
     fill(255);
+    stroke(0);
     for (int i = 0; i < body.size(); i++) {
       rect(body.get(i).x, body.get(i).y, SIZE, SIZE);
     }
 
-    if(dead) {
+    if (dead) {
       fill(150);
     } else {
       fill(255);
@@ -145,11 +147,11 @@ class Snake {
   }
 
   void shiftBody() {
-    head.x += velocity.x;
-    head.y += velocity.y;
-
     float tempx = head.x;
     float tempy = head.y;
+
+    head.x += velocity.x;
+    head.y += velocity.y;
 
     for (int i = 0; i < body.size(); i++) {
       float temp2x = body.get(i).x;
@@ -220,7 +222,7 @@ class Snake {
           ellipseMode(CENTER);
           ellipse(pos.x, pos.y, 5, 5);
         }
-        if(bodyFound) {
+        if (bodyFound) {
           noStroke();
           fill(102, 0, 102);
           ellipseMode(CENTER);

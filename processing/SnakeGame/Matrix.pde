@@ -26,8 +26,8 @@ class Matrix {
   }
 
   Matrix dot(Matrix m) {
+    Matrix result = new Matrix(rows, m.cols);
     if (cols == m.rows) {
-      Matrix result = new Matrix(rows, m.cols);
       for (int i = 0; i < rows; i++) {
         for (int j = 0; j < m.cols; j++) {
           float sum = 0;
@@ -37,9 +37,8 @@ class Matrix {
           result.matrix[i][j] = sum;
         }
       }
-      return result;
     }
-    return null;
+    return result;
   }
 
   void randomize() {
