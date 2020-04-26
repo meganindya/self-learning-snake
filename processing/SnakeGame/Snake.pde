@@ -3,7 +3,7 @@ class Snake {
   int lifeLeft = 200;
   int lifeTime = 0;
   int foodIterator = 0;
-  PVector velocity;
+  PVector velocity = new PVector(0, 0);
 
   float fitness = 0;
 
@@ -24,18 +24,17 @@ class Snake {
     this(hiddenLayers);
   }
 
-  Snake(int hLayers) {
+  Snake(int layers) {
     head = new PVector(800, height / 2);
     food = new Food();
     body = new ArrayList<PVector>();
-    velocity = new PVector(0, 0);
 
     if (!humanPlaying) {
       vision = new float[24];
       decision = new float[4];
       foodList = new ArrayList<Food>();
       foodList.add(food.clone());
-      brain = new NeuralNetwork(24, hiddenNodes, 4, hLayers);
+      brain = new NeuralNetwork(24, hiddenNodes, 4, layers);
       body.add(new PVector(800, (height / 2) + SIZE));
       body.add(new PVector(800, (height / 2) + SIZE * 2));
       score += 2;
@@ -195,55 +194,6 @@ class Snake {
     }
   }
 
-  float[] lookInDirection(PVector direction) {
-    float look[] = new float[3];
-    PVector pos = new PVector(head.x, head.y);
-    float distance = 0;
-    boolean foodFound = false;
-    boolean bodyFound = false;
-    pos.add(direction);
-    distance += 1;
-
-    while (!wallCollide(pos.x, pos.y)) {
-      if (!foodFound && foodCollide(pos.x, pos.y)) {
-        foodFound = true;
-        look[0] = 1;
-      }
-      if (!bodyFound && bodyCollide(pos.x, pos.y)) {
-        bodyFound = true;
-        look[1] = 1;
-      }
-      if (replay && showVision) {
-        stroke(0, 255, 0);
-        point(pos.x, pos.y);
-        if (foodFound) {
-          noStroke();
-          fill(255, 255, 51);
-          ellipseMode(CENTER);
-          ellipse(pos.x, pos.y, 5, 5);
-        }
-        if (bodyFound) {
-          noStroke();
-          fill(102, 0, 102);
-          ellipseMode(CENTER);
-          ellipse(pos.x, pos.y, 5, 5);
-        }
-      }
-      pos.add(direction);
-      distance += 1;
-    }
-
-    if (replay && showVision) {
-      noStroke();
-      fill(0, 255, 0);
-      ellipseMode(CENTER);
-      ellipse(pos.x, pos.y, 5, 5);
-    }
-
-    look[2] = 1 / distance;
-    return look;
-  }
-
   void look() {
     vision = new float[24];
     float temp[] = lookInDirection(new PVector(-SIZE, 0));
@@ -278,6 +228,55 @@ class Snake {
     vision[21] = temp[0];
     vision[22] = temp[1];
     vision[23] = temp[2];
+  }
+
+  float[] lookInDirection(PVector direction) {
+    float look[] = new float[3];
+    PVector pos = new PVector(head.x, head.y);
+    float distance = 0;
+    boolean foodFound = false;
+    boolean bodyFound = false;
+    pos.add(direction);
+    distance++;
+
+    while (!wallCollide(pos.x, pos.y)) {
+      if (!foodFound && foodCollide(pos.x, pos.y)) {
+        foodFound = true;
+        look[0] = 1;
+      }
+      if (!bodyFound && bodyCollide(pos.x, pos.y)) {
+        bodyFound = true;
+        look[1] = 1;
+      }
+      if (replay && showVision) {
+        stroke(0, 255, 0);
+        point(pos.x, pos.y);
+        if (foodFound) {
+          noStroke();
+          fill(255, 255, 51);
+          ellipseMode(CENTER);
+          ellipse(pos.x, pos.y, 5, 5);
+        }
+        if (bodyFound) {
+          noStroke();
+          fill(102, 0, 102);
+          ellipseMode(CENTER);
+          ellipse(pos.x, pos.y, 5, 5);
+        }
+      }
+      pos.add(direction);
+      distance++;
+    }
+
+    if (replay && showVision) {
+      noStroke();
+      fill(0, 255, 0);
+      ellipseMode(CENTER);
+      ellipse(pos.x, pos.y, 5, 5);
+    }
+
+    look[2] = 1 / distance;
+    return look;
   }
 
   void think() {

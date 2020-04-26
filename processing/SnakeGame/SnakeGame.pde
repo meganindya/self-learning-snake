@@ -30,7 +30,7 @@ Snake model;
 
 Population population;
 
-public void setting() {
+public void settings() {
   size(1200, 800);
 }
 

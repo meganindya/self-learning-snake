@@ -4,7 +4,6 @@ class Population {
 
   int bestSnakeScore = 0;
   int generation = 0;
-  int sameBest = 0;
 
   float bestFitness = 0;
   float fitnessSum = 0;

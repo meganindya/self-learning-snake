@@ -61,7 +61,7 @@ class Matrix {
     float arr[] = new float[rows * cols];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        arr[i * cols + j] = matrix[i][j];
+        arr[j + i * cols] = matrix[i][j];
       }
     }
     return arr;

@@ -13,7 +13,7 @@ class NeuralNetwork {
     for (int i = 0; i < hLayers; i++) {
       weights[i] = new Matrix(hNodes, hNodes + 1);
     }
-    weights[hLayers] = new Matrix(oNodes, hNodes + 1);
+    weights[weights.length - 1] = new Matrix(oNodes, hNodes + 1);
 
     for (Matrix w : weights) {
       w.randomize();
@@ -36,7 +36,7 @@ class NeuralNetwork {
       curr_bias = hiddenOut.addBias();
     }
 
-    Matrix outputInp = weights[hLayers].dot(curr_bias);
+    Matrix outputInp = weights[weights.length - 1].dot(curr_bias);
     Matrix output = outputInp.activate();
 
     return output.toArray();
@@ -98,7 +98,7 @@ class NeuralNetwork {
       textSize(nSize / 2);
       textAlign(CENTER, CENTER);
       fill(0);
-      text(i, x + nSize / 2, y + (nSize / 2) + i * (nSize + space));
+      text(i, x + (nSize / 2), y + (nSize / 2) + (i * (nSize + space)));
     }
 
     layerCount++;
